@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/style.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="password-score/dist/js/password-score.js"></script>
+    <script type="text/javascript" src="password-score/dist/js/password-score-options.js"></script>
+    <script type="text/javascript" src="dist/js/bootstrap-strength-meter.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/all.css">
+
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="jslib/jquery-1.11.1.js"></script>
+    <script type="text/javascript" language="javascript">
+        $(document).ready(function() {
+            $("#wrongsearch_aleart").hide();
+            setTimeout($("#searching_progress").attr("style","width:0%"), 5000);
+
+            if ($("#btnradio1").is(":checked")) {
+                $("#tb_depart").attr("class", "col-4");
+                $("#tb_return").hide();
+            }
+            $("#btnradio1").click(function(event) {
+                $("#tb_depart").attr("class", "col-4");
+                $("#tb_return").hide();
+            });
+            $("#btnradio2").click(function(event) {
+                $("#tb_depart").attr("class", "col-2");
+                $("#tb_return").show();
+            });
+            $(document).click(function(event) {
+                var adult_ppl = parseInt($("#formControlRange").val());
+                var child_ppl = parseInt($("#formControlRange1").val());
+                var baby_ppl = parseInt($("#formControlRange2").val());
+                var total_ppl = adult_ppl + child_ppl + baby_ppl;
+
+                $('#rangeval_total').html(total_ppl);
+
+
+            });
+            $(".dropdown-menu button").click(function(event) {
+                var select_fclass = $(this).text();
+                $('#fight_class').html(select_fclass);
+            });
+            $("#search_btn").click(function(event) {
+                var wrong_message = "";
+                if ($("#fly_from").val() == "Leaving From") {
+                    wrong_message = "Please select an origin";
+                    $("#wrongsearch_aleart strong").text(wrong_message);
+                    $("#wrongsearch_aleart").show();
+                } else if ($("#fly_to").val() == "Going To") {
+                    wrong_message = "Please select a destination";
+                    $("#wrongsearch_aleart strong").text(wrong_message);
+                    $("#wrongsearch_aleart").show();
+                } else if ($("#fly_from").val() == $("#fly_to").val()) {
+
+                    wrong_message = "Please choose a different destination from origin "
+                    $("#wrongsearch_aleart strong").text(wrong_message);
+                    $("#wrongsearch_aleart").show();
+
+                } else if ($("#departing_fly").val() == "") {
+                    wrong_message = "Please choose your departing date"
+                    $("#wrongsearch_aleart strong").text(wrong_message);
+                    $("#wrongsearch_aleart").show();
+
+                } else if ($("#returning_fly").val() == "" && $("#btnradio2").is(':checked')) {
+
+                    wrong_message = "Please choose your returning date"
+                    $("#wrongsearch_aleart strong").text(wrong_message);
+                    $("#wrongsearch_aleart").show();
+                } else {
+                    $("#wrongsearch_aleart").hide();
+                    $('#searching_progress').animate({
+                        width: "100%"
+                    }, {
+                        duration: 2500,
+                        complete: function() {
+                            
+                            setTimeout(doneProgressCallback(), 2500);
+                        }
+
+                    });
+
+                }
+
+
+
+
+            });
+
+        });
+
+        function doneProgressCallback() {
+            if ($("#btnradio1").is(":checked")) {
+                window.location.href = "flight_oneway.html";
+            }else{
+                window.location.href = "flight_return.html";
+            }
+        };
+    </script>
+</head>
+
+<body>
+    <!--
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <img src="img/Logo.png" id="logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarColor02">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="index.html">Home
+                            <span class="visually-hidden">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="">Searching
+                        </a>
+                    </li>
+
+
+                </ul>
+
+                <ul class="nav navbar-nav pull-right">
+                    <p style="color:white;"><i class="fa-solid fa-user"></i>Salesperson - Thomas Chan |</p>
+                    <a class="text-white font-weight-bold" href="index.html">Logout</a>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+-->
+    <section id="nav">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg py-3 sticky-top navbar-light bg-white">
+                <div class="container-fluid">
+                    <img src="img/Logo.png" id="logo">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent navbar">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#intro">Search flight info </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#intro">View booking </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#intro">Reserve</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#SignUpModal">Sign Up</button>
+                            </li>
+
+                            <li class="nav-item">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#LoginModal">
+                                    Login
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </section>
+    <div class="container mt-3">
+
+        <div class="card bg-light mb-4">
+            <div class="card-header rt-1 d-flex justify-content-center .text-primary fs-3">
+                Search Flight
+            </div>
+            <div class="mt-2 mx-3 mb-3" role="group" aria-label="Basic radio toggle button group">
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+                <label class="btn btn-outline-primary" for="btnradio1"><i class="fa-solid fa-arrow-right"></i> One-way</label>
+
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btnradio2"><i class="fa-solid fa-right-left"></i> Return</label>
+                <div class="btn-group px-2 float-end" role="group" aria-label="Button group with nested dropdown">
+                    <span type="button" class="btn btn-primary"><i class="fa-solid fa-people-group" onchange=""></i> Travellers : <span id="rangeval_total">1</span>
+
+                    </span>
+                    <div class="btn-group" role="group">
+                        <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle mr-2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="">
+
+                            <label for="formControlRange">&nbsp;<i class="fa-solid fa-person"></i> Adult: <span id="rangeval">1</span></label>
+                            <input type="range" class="form-range" value="1" min="1" max="10" step="1" id="formControlRange" onInput="$('#rangeval').html($(this).val())">
+
+                            <label for="formControlRange">&nbsp;<i class="fa-solid fa-child"></i> Children: <span id="rangeval1">0</span></label>
+                            <input type="range" class="form-range" value="0" min="0" max="10" step="1" id="formControlRange1" onInput="$('#rangeval1').html($(this).val())">
+                            <label for="formControlRange">&nbsp;<i class="fa-solid fa-baby"></i> Infant: <span id="rangeval2">0</span></label>
+                            <input type="range" class="form-range" value="0" min="0" max="10" step="1" id="formControlRange2" onInput="$('#rangeval2').html($(this).val())">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-group px-2 float-end" role="group" aria-label="Button group with nested dropdown">
+                    <span type="button" class="btn btn-primary"><i class="fa-solid fa-globe"></i>Flight Class : <span id="fight_class">Enconomy</span>
+
+                    </span>
+                    <div class="btn-group" role="group">
+                        <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle mr-2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="">
+                            <button id="Enco_class" class="dropdown-item" href="#">Enconomy</button>
+                            <button class="dropdown-item" href="#">Premium Enconomy</button>
+                            <button class="dropdown-item" href="#">Business</button>
+                            <button class="dropdown-item" href="#">First Class</button>
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <div class="row mx-1">
+
+                <div class="col-4">
+                    <div class="form-group  ">
+                        <label for="exampleSelect1" class="form-label "><i class="fa-solid fa-plane-departure"></i>Select Leaving Airport</label>
+                        <select class="form-select " id="fly_from">
+                            <option>Leaving From</option>
+                            <option>Hong Kong</option>
+                            <option>Shanghai Pudong International Airport</option>
+                            <option>Kansai Airports</option>
+                            <option>Taoyuan International Airport</option>
+
+                        </select>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <label for="exampleSelect1" class="form-label "><i class="fa-solid fa-plane-arrival"></i>Select going Airport</label>
+                    <select class="form-select " id="fly_to">
+                        <option>Going To</option>
+                        <option>Hong Kong</option>
+                        <option>Shanghai Pudong International Airport</option>
+                        <option>Kansai Airports</option>
+                        <option>Taoyuan International Airport</option>
+
+                    </select>
+                </div>
+                <div class="col-2 " id="tb_depart">
+                    <label for="exampleSelect1" class="form-label "><i class="fa-regular fa-calendar"></i>Departing</label><br>
+                    <input class="form-control" type="date" id="departing_fly" name="trip-start" value="" min="" max="">
+
+                </div>
+                <div class="col-2" id="tb_return">
+                    <label for="exampleSelect1" class="form-label "><i class="fa-regular fa-calendar"></i>Returning</label><br>
+                    <input class="form-control" type="date" id="returning_fly" name="trip-start" value="" min="" max="">
+
+                </div>
+                <div class="col-md-12 text-center mb-2"><button type="button" class="btn btn-primary mt-4 btn-lg" id="search_btn">Search</button></div>
+            </div>
+            <div class="alert alert-dismissible alert-primary" id="wrongsearch_aleart">
+                <strong>Oh snap!try searching again</strong>.
+            </div>
+
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%;" id="searching_progress"></div>
+            </div>
+
+
+
+
+
+        </div>
+    </div>
+
+</body></html>

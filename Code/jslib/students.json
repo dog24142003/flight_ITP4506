@@ -1,0 +1,28 @@
+[
+    {
+        "stud_ID": "1111",
+        "name":"Mary",
+        "lastName": "Chan",
+        "age": "22",
+        "sex": "female"
+   },
+    {
+        "stud_ID": "2222",
+        "name":"Peter",
+        "lastName": "Wong",
+        "age": "21",
+        "sex": "male"
+   },{
+        "stud_ID": "3333",
+        "name":"David",
+        "lastName": "Cheung",
+        "age": "19",
+        "sex": "male"
+   },{
+        "stud_ID": "4444",
+        "name":"John",
+        "lastName": "Leung",
+        "age": "19",
+        "sex": "male"
+   }
+]
